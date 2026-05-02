@@ -1,16 +1,10 @@
 import 'package:brain_train/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/game_model.dart';
 
-class GameService {
+
+class UserService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  Future<List<GameModel>> getGamesByCategory(GameCategory category) async {
-    final snapshot = await _firestore.collection('games').where('category', isEqualTo: category.toString()).get();
-
-    return snapshot.docs.map((doc) => GameModel.fromMap({...doc.data(), 'id': doc.id})).toList();
-  }
 
   Future<void> updateUserScore(String userId, String gameId, int score) async {
     final userRef = _firestore.collection('users').doc(userId);

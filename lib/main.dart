@@ -4,7 +4,7 @@ import 'package:brain_train/screens/home_screen.dart';
 import 'package:brain_train/screens/login_screen.dart';
 import 'package:brain_train/screens/sms_list_screen.dart';
 import 'package:brain_train/services/auth_service.dart';
-import 'package:brain_train/services/game_service.dart';
+import 'package:brain_train/services/user_service.dart';
 import 'package:brain_train/services/gemini_service.dart';
 import 'package:brain_train/services/sms_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' if (skipFirebase) '';
@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
           Provider<AuthService>(
             create: (_) => AuthService(),
           ),
-          Provider<GameService>(
-            create: (_) => GameService(),
-          ),
+
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
             initialData: null,
@@ -88,7 +86,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.hasData && snapshot.data != null) {
           final user = snapshot.data!;
           return FutureBuilder(
-            future: context.read<GameService>().getUser(user.uid),
+            future: context.read<UserService>().getUser(user.uid),
             builder: (context, userSnapshot) {
               if (userSnapshot.connectionState == ConnectionState.waiting) {
                 return const CircularLoaderItem();
@@ -107,7 +105,7 @@ class MyApp extends StatelessWidget {
                 email: user.email ?? '',
                 photoURL: user.photoURL ?? '',
               );
-              context.read<GameService>().createUser(newUser);
+              context.read<UserService>().createUser(newUser);
 
               return HomeScreen(user: newUser);
             },
