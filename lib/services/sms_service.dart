@@ -55,7 +55,6 @@ class SmsService {
     'debit card',
     'statement',
     'bill',
-    'due',
     'recharge',
     'successful'
   ];
@@ -302,3 +301,4 @@ class SmsService {
     _financialSmsController.close();
   }
 }
+

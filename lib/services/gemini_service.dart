@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import '../core/config/api_keys.dart';
 
 class GeminiService {
-  static const String _modelName = 'gemini-2.0-flash';
+  static const String _modelName = 'gemini-2.5-flash';
   late final GenerativeModel _model;
   bool _isInitialized = false;
 

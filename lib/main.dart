@@ -11,8 +11,13 @@ import 'package:firebase_auth/firebase_auth.dart' if (skipFirebase) '';
 import 'package:firebase_core/firebase_core.dart' if (skipFirebase) '';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 import 'firebase_options.dart';
+import 'package:brain_train/models/financial_goal.dart';
+
+
 
 // Set to true to skip Firebase initialization when testing SMS functionality
 const bool skipFirebase = false;
@@ -20,6 +25,13 @@ const bool skipFirebase = false;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(FinancialGoalAdapter());
+
+  await Hive.openBox<FinancialGoal>('goalsBox');
+
+  runApp(const MyApp());
   // Only initialize Firebase if not skipping
   if (!skipFirebase && Firebase.apps.isEmpty) {
     try {
@@ -46,7 +58,9 @@ class MyApp extends StatelessWidget {
           Provider<AuthService>(
             create: (_) => AuthService(),
           ),
-
+          Provider<UserService>(
+            create: (_) => UserService(),
+          ),
           StreamProvider<User?>(
             create: (context) => FirebaseAuth.instance.authStateChanges(),
             initialData: null,

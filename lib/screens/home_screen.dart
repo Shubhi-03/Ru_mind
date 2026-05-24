@@ -6,6 +6,9 @@ import 'package:brain_train/screens/sms_list_screen.dart';
 import 'package:brain_train/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:brain_train/screens/financial_goals_screen.dart';
+
+
 
 import 'profile_screen.dart';
 
@@ -322,7 +325,14 @@ class HomeScreen extends StatelessWidget {
               subtitle: 'Set and track your goals',
               icon: Icons.flag_rounded,
               color: Colors.green,
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FinancialGoalsScreen(),
+                  ),
+                );
+              },
             ),
             _buildMenuCard(
               context,
@@ -333,7 +343,10 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const GeminiTestScreen(),
+                    builder: (context) => ProfileScreen(
+                      user: user!,
+                      authService: AuthService(),
+                    ),
                   ),
                 );
               },

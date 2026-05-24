@@ -1,3 +1,6 @@
+import 'package:brain_train/screens/about_screen.dart';
+import 'package:brain_train/screens/contact_us_screen.dart';
+import 'package:brain_train/screens/privacy_policy_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../models/user_model.dart';
@@ -42,15 +45,6 @@ class ProfileScreen extends StatelessWidget {
                     _buildSectionTitle(context, 'Account Settings'),
                     _buildMenuCard(
                       context,
-                      icon: Icons.leaderboard,
-                      title: 'Game Statistics',
-                      color: Colors.blue,
-                      onTap: () {
-                        // TODO: Navigate to game statistics
-                      },
-                    ),
-                    _buildMenuCard(
-                      context,
                       icon: Icons.settings,
                       title: 'Settings',
                       color: Colors.purple,
@@ -66,27 +60,39 @@ class ProfileScreen extends StatelessWidget {
                       title: 'Privacy Policy',
                       color: Colors.green,
                       onTap: () {
-                        // TODO: Navigate to privacy policy
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const PrivacyPolicyScreen(),
+                          ),
+                        );
                       },
                     ),
                     _buildMenuCard(
-                      context,
-                      icon: Icons.contact_support,
-                      title: 'Contact Us',
-                      color: Colors.orange,
-                      onTap: () {
-                        // TODO: Navigate to contact us
-                      },
-                    ),
-                    _buildMenuCard(
-                      context,
-                      icon: Icons.info,
-                      title: 'About',
-                      color: Colors.teal,
-                      onTap: () {
-                        // TODO: Navigate to about
-                      },
-                    ),
+                    context,
+                    icon: Icons.contact_support,
+                    title: 'Contact Us',
+                    color: Colors.orange,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ContactUsScreen()),
+                      );
+                    },
+                  ),
+
+                  _buildMenuCard(
+                    context,
+                    icon: Icons.info,
+                    title: 'About',
+                    color: Colors.teal,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const AboutScreen()),
+                      );
+                    },
+                  ),
                     const SizedBox(height: 24),
                     _buildSignOutButton(context),
                   ],
